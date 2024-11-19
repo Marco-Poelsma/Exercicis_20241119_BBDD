@@ -67,26 +67,18 @@ CREATE TABLE IF NOT EXISTS Cliente_Entrega (
     CONSTRAINT PK_Cliente_Entrega PRIMARY KEY (id_cliente, fecha_entrega, nombre_coleccion)
 );
 
-ALTER TABLE Subscritor
-ADD CONSTRAINT FK_Subscritor FOREIGN KEY (id_subscritor) REFERENCES Usuario (id_usuario) ON UPDATE CASCADE ON DELETE CASCADE
+ALTER TABLE Subscritor ADD CONSTRAINT FK_Subscritor FOREIGN KEY (id_subscritor) REFERENCES Usuario (id_usuario) ON UPDATE CASCADE, ON DELETE CASCADE;
 
-ALTER TABLE Subscritor_Coleccion
-ADD CONSTRAINT FK_1_Subscritor_Coleccion FOREIGN KEY (id_subscritor) REFERENCES Subscritor (id_subscritor) ON UPDATE CASCADE ON DELETE CASCADE
+ALTER TABLE Subscritor_Coleccion ADD CONSTRAINT FK_1_Subscritor_Coleccion FOREIGN KEY (id_subscritor) REFERENCES Subscritor (id_subscritor) ON UPDATE CASCADE, ON DELETE CASCADE;
 
-ALTER TABLE Subscritor_Coleccion
-ADD CONSTRAINT FK_2_Subscritor_Coleccion FOREIGN KEY (nombre_coleccion) REFERENCES Coleccion (nombre_coleccion) ON UPDATE CASCADE ON DELETE CASCADE
+ALTER TABLE Subscritor_Coleccion ADD CONSTRAINT FK_2_Subscritor_Coleccion FOREIGN KEY (nombre_coleccion) REFERENCES Coleccion (nombre_coleccion) ON UPDATE CASCADE, ON DELETE CASCADE;
 
-ALTER TABLE Entrega
-ADD CONSTRAINT FK_Entrega FOREIGN KEY (nombre_coleccion) REFERENCES Coleccion (nombre_coleccion) ON UPDATE CASCADE ON DELETE CASCADE
+ALTER TABLE Entrega ADD CONSTRAINT FK_Entrega FOREIGN KEY (nombre_coleccion) REFERENCES Coleccion (nombre_coleccion) ON UPDATE CASCADE, ON DELETE CASCADE;
 
-ALTER TABLE Regalo
-ADD CONSTRAINT FK_Regalo FOREIGN KEY (fecha_entrega, nombre_coleccion) REFERENCES Entrega (fecha_entrega, nombre_coleccion) ON UPDATE CASCADE ON DELETE CASCADE
+ALTER TABLE Regalo ADD CONSTRAINT FK_Regalo FOREIGN KEY (fecha_entrega, nombre_coleccion) REFERENCES Entrega (fecha_entrega, nombre_coleccion) ON UPDATE CASCADE, ON DELETE CASCADE;
 
-ALTER TABLE Cliente_Entrega
-ADD CONSTRAINT FK_1_Cliente_Entrega FOREIGN KEY (id_cliente) REFERENCES Cliente (id_cliente) ON UPDATE CASCADE ON DELETE CASCADE
+ALTER TABLE Cliente_Entrega ADD CONSTRAINT FK_1_Cliente_Entrega FOREIGN KEY (id_cliente) REFERENCES Cliente (id_cliente) ON UPDATE CASCADE, ON DELETE CASCADE;
 
-ALTER TABLE Cliente_Entrega
-ADD CONSTRAINT FK_2_Cliente_Entrega FOREIGN KEY (fecha_entrega, nombre_coleccion) REFERENCES Entrega (fecha_entrega, nombre_coleccion) ON UPDATE CASCADE ON DELETE CASCADE
+ALTER TABLE Cliente_Entrega ADD CONSTRAINT FK_2_Cliente_Entrega FOREIGN KEY (fecha_entrega, nombre_coleccion) REFERENCES Entrega (fecha_entrega, nombre_coleccion) ON UPDATE CASCADE, ON DELETE CASCADE;
 
-ALTER TABLE Cliente
-ADD CONSTRAINT FK_Cliente FOREIGN KEY (id_cliente) REFERENCES Usuario (id_usuario) ON UPDATE CASCADE ON DELETE CASCADE
+ALTER TABLE Cliente ADD CONSTRAINT FK_Cliente FOREIGN KEY (id_cliente) REFERENCES Usuario (id_usuario) ON UPDATE CASCADE, ON DELETE CASCADE;
