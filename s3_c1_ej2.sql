@@ -16,5 +16,40 @@ CREATE TABLE IF NOT EXISTS Equipo (
     nombre_presidente VARCHAR(20) NOT NULL,
     apellido1_presidente VARCHAR(20) NOT NULL,
     apellido2_presidente VARCHAR(20) NOT NULL,
+    nombre_entrenador VARCHAR(20) NOT NULL,
+    apellido1_entrenador VARCHAR(20) NOT NULL,
+    apellido2_entrenador VARCHAR(20) NOT NULL,
+    direccion VARCHAR(50) NOT NULL,
     CONSTRAINT PK_Equipo PRIMARY KEY (nombre) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS JUGADOR (
+    num_SS_jugador INTEGER UNSIGNED NOT NULL,
+    dorsal TINYINT UNSIGNED NOT NULL,
+    ubicacion VARCHAR(20) NOT NULL,
+    ficha DECIMAL NOT NULL,
+    nombre_equipo VARCHAR(20) NOT NULL,
+    CONSTRAINT PK_Jugador PRIMARY KEY (num_SS_jugador) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT FK_1_Jugador FOREIGN KEY (num_SS_jugador) REFERENCES Persona(num_SS) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT FK_2_Jugador FOREIGN KEY (nombre_equipo) REFERENCES Equipo(nombre) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Arbitro(
+    num_SS_arbitro INTEGER UNSIGNED NOT NULL,
+    num_colegiado INTEGER UNSIGNED NOT NULL,
+    ano_inicio DATE NOT NULL,
+    profesion VARCHAR(20),
+    CONSTRAINT PK_Arbitro PRIMARY KEY (num_SS_arbitro) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT FK_1_Arbitro FOREIGN KEY (num_SS_arbitro) REFERENCES Persona(num_SS) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Partido (
+    num_SS_arbitro INTEGER UNSIGNED NOT NULL,
+    equipo_local VARCHAR(20) NOT NULL,
+    equipo_visitante VARCHAR(20) NOT NULL,
+    fecha DATE NOT NULL,
+    resultado VARCHAR(10) NOT NULL,
+    CONSTRAINT PK_Partido PRIMARY KEY (num_SS_arbitro, equipo_local, equipo_visitante),
+    CONSTRAINT FK_1_Partido FOREIGN KEY (num_SS_arbitro) REFERENCES Arbitro(num_SS_arbitro) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT FK_2_Partido FOREIGN KEY (equipo_local, equipo_visitante) REFERENCES EQUIPO(nombre, nombre) ON UPDATE CASCADE ON DELETE CASCADE
 );
